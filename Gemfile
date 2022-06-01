@@ -1,3 +1,4 @@
+#Gemに変更を加えたら　bundle install　をすること
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
@@ -23,7 +24,7 @@ gem 'jbuilder', '~> 2.7'
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
+ gem 'image_processing', '~> 1.2' #image_processingというGemを用いて画像サイズの変更を行う
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
@@ -54,3 +55,6 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'devise' #ユーザー認証機能を適応させるGem
+#gem 'devise'を使えるようにするためにはrails g devise:install が必要
+#deviseはモデル、ビュー、コントローラを作成するための独自のコマンドを持っている！

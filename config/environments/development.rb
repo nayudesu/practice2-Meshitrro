@@ -74,4 +74,5 @@ Rails.application.configure do
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
   config.hosts << "9cd2883b30a94c02939a19d2e152ba9b.vfs.cloud9.us-east-1.amazonaws.com"
+  config.active_job.queue_adapter = :inline #画像サイズ変更時のコードのエラーの回避のために設定を加える
 end
