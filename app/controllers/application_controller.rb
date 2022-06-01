@@ -6,8 +6,8 @@ class ApplicationController < ActionController::Base
   protected #呼び出された他のコントローラから参照することが可能
 
   def after_sign_in_path_for(resource)
-    #Deviseのメソッドでサインイン後にどこに遷移するかを設定+resource=???
-    about_pat
+    #Deviseのメソッドでサインイン後にどこに遷移するかを設定+resource=固定のもの
+    about_path
   end
   
   def after_sign_out_path_for(resource)

@@ -2,6 +2,7 @@
 <h2>Sign up</h2>
 
 <%= form_with model: @user, url: user_registration_path do |f| %>
+<!--@userはapp.controllerで表記されていないが、user.newという内容-->
 <%= render "devise/shared/error_messages", resource: resource %>
   
   <!--name も登録するため、フォームを追加する-->
