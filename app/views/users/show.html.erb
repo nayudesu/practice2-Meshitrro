@@ -1,0 +1,26 @@
+<!-- ユーザーの詳細 -->
+<div>
+  <h3><%= @user.name %></h3>
+  <%= image_tag @user.get_profile_image(100,100) %> <!--モデルでwidth, heightを記述しているためサイズ変更可能-->
+  <p><%= link_to 'プロフィール編集', edit_user_path(@user)%></p> <!--@userで特定のユーザーの画面に遷移する-->
+</div>
+
+<!--ユーザー投稿一覧-->
+
+<%= @post_images.each do |post_image| %>
+<!--@user.post_imagesに格納されているデータは複数ある＝each文を使用して一つずつ操作する-->
+<div>
+  <% link_to post_image_path(post_image.id) do %>  <!--post_image.idは投稿画像のid(schemaで確認できる)-->
+  <!--pathは対象のURL？-->
+  <%= image_tag post_image.get_image %>　<!--post_imageモデルに記載しているget_image-->
+    <!--画像にリンクをつけるときは２文-->
+  <% end %>
+  
+  <p>投稿投稿ユーザー画像：<%= image_tag post_image.user.get_profile_image(100,100) %></p> <!--処理を呼び出すためgetが大切-->
+  <p>ショップ名：<%= post_image.shop_name %></p>
+  <p>説明： <%= post_image.caption %></p>
+  <p>ユーザユーザーネーム：<%= post_image.user.name %></p>
+  
+</div>
+
+<% end %>

@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     #Deviseのメソッドでサインイン後にどこに遷移するかを設定+resource=固定のもの
-    about_path
+    post_images_path #index画面に遷移
   end
   
   def after_sign_out_path_for(resource)
