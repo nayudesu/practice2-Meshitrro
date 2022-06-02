@@ -2,17 +2,21 @@
 <div>
   <h3><%= @user.name %></h3>
   <%= image_tag @user.get_profile_image(100,100) %> <!--モデルでwidth, heightを記述しているためサイズ変更可能-->
-  <p><%= link_to 'プロフィール編集', edit_user_path(@user)%></p> <!--@userで特定のユーザーの画面に遷移する-->
+  
+  <% if @user == current_user %>
+  <p><%= link_to 'プロフィール編集', edit_user_path(@user) %></p> <!--@userで特定のユーザーの画面に遷移する-->
+  <% end %>
+  
 </div>
 
 <!--ユーザー投稿一覧-->
 
-<%= @post_images.each do |post_image| %>
+<% @post_images.each do |post_image| %>
 <!--@user.post_imagesに格納されているデータは複数ある＝each文を使用して一つずつ操作する-->
 <div>
   <% link_to post_image_path(post_image.id) do %>  <!--post_image.idは投稿画像のid(schemaで確認できる)-->
   <!--pathは対象のURL？-->
-  <%= image_tag post_image.get_image %>　<!--post_imageモデルに記載しているget_image-->
+  <%= image_tag post_image.get_image %> <!--post_imageモデルに記載しているget_image-->
     <!--画像にリンクをつけるときは２文-->
   <% end %>
   
@@ -20,7 +24,8 @@
   <p>ショップ名：<%= post_image.shop_name %></p>
   <p>説明： <%= post_image.caption %></p>
   <p>ユーザユーザーネーム：<%= post_image.user.name %></p>
-  
+  <p><%= link_to "#{post_image.post_comments.count} コメント", post_image_path(post_image.id) %></p><!--投稿画像の詳細画面へ飛ぶ-->
+  <!--#{}は変数展開-->
 </div>
 
 <% end %>

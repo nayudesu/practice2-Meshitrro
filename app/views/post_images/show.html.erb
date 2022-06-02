@@ -3,13 +3,51 @@
   
   <p>ショップ名：<%= @post_image.shop_name %></p>
   <p>説明：<%= @post_image.caption %></p>
-  <p>投稿ユーザー画像：<%= image_tag 'sample-author1.jpg' %></p>
+  
+  <p>投稿ユーザー画像：<%= image_tag @post_image.user.get_profile_image(100,100) %></p>
+ <!--userのget_profile_image（モデルに記載済み）を呼び出す（showページも）-->
   <p>ユーザーネーム：<%= @post_image.user.name %></p>
-  <p>投稿日：<%= @post_image.created_at.strftime('%Y/%m/%d') %></p>　<!--日時指定フォーマット-->
+  <p>投稿日：<%= @post_image.created_at.strftime('%Y/%m/%d') %></p><!--日時指定フォーマット-->
 <!--created_at.strftime=投稿日付の形式を変換しているメソッド、('%Y/%m/%d')年/月/日のフォーマットへ変換する-->
 
  <% if @post_image.user == current_user %> <!--投稿ユーザーとログインしてるユーザーが同じならば-->
   <%= link_to '削除', post_image_path(@post_image), method: :delete %>
   <!--showページにある@post_imageは投稿された内容全て-->
 <% end %>  
+</div>
+
+<div>
+ <p>コメント件数：<%= @post_image.post_comments.count %></p> <!--@post_image.post_commentと記述するのは親子関係のため-->
+ 
+ <% @post_image.post_comments.each do |post_comment| %>
+   <p><%= image_tag post_comment.user.get_profile_image(100,100) %></p>
+   <%= post_comment.user.name %>
+   <%= post_comment.created_at.strftime('%Y/%m/%d') %><%= post_comment.comment %>
+   
+     <%= link_to '削除', post_image_post_comment_path(post_comment.post_image, post_comment), method: :delete %> <!--パスはrails routes で確認する-->
+¥ <% end %>
+ 
+ <% if @post_image.favorited_by?(current_user) %> <!--ログインしているユーザーのidがfavoriteの中に存在しているか-->
+ <p>
+  <%= link_to post_image_favorites_path(@post_image), method: :delete do %>
+        ♥<%= @post_image.favorites.count %> いいね
+  <% end %>
+ </p>
+ 
+ <% else %>
+ 
+ <p>
+   <%= link_to post_image_favorites_path(@post_image), method: :post do %>
+        ♡<%= @post_image.favorites.count %> いいね
+   <% end %>
+ </p>
+ <% end %>
+</div>
+
+<div>
+ <%= form_with model: [@post_image, @post_comment] do |f| %>
+ <!--コメントは、post_imageに結びついたpost_commentであるため、2つ用意する必要がある＋モデルの呼び出しには＠をつけるため-->
+   <%= f.text_area :comment, row:'5', placeholder: "コメントをここに" %>
+   <%= f.submit "送信する" %>
+ <% end %>
 </div>

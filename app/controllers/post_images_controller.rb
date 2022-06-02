@@ -18,6 +18,7 @@ class PostImagesController < ApplicationController
 
   def show
     @post_image = PostImage.find(params[:id]) #findには必ず引数を入力する(params[:id])
+    @post_comment = PostComment.new #親子関係にあるPosCommentを投稿するための空のカラム
   end
   
   def destroy
